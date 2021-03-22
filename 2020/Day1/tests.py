@@ -17,7 +17,7 @@ class TestDay1:
 
     def test_bad_values_provided(self):
         with raises(TypeError):
-            get_multiplication('a', 'b')
+            get_multiplication("a", "b")
 
     def test_missing_arguments(self):
         with raises(TypeError):

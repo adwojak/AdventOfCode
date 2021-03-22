@@ -1,22 +1,28 @@
 from functools import reduce
 from re import finditer
 
-TREE_SYMBOL = '#'
+TREE_SYMBOL = "#"
 BASE_MOVE_PATTERN = (3, 1)
 MOVES_PATTERN_LIST = [(1, 1), BASE_MOVE_PATTERN, (5, 1), (7, 1), (1, 2)]
 START_POSITION = (0, 0)
 
 
-with open('input') as f:
+with open("input") as f:
     trees = []
-    file_content = f.read().split('\n')
+    file_content = f.read().split("\n")
     ROWS_COUNT = len(file_content)
     LINE_LENGTH = len(file_content[0])
-    [trees.append([tree.start() for tree in finditer('#', line)]) for row, line in enumerate(file_content)]
+    [
+        trees.append([tree.start() for tree in finditer("#", line)])
+        for row, line in enumerate(file_content)
+    ]
 
 
 def get_toboggan_position(move_pattern, current_row):
-    return move_pattern[0] * current_row + START_POSITION[0], move_pattern[1] * current_row + START_POSITION[1]
+    return (
+        move_pattern[0] * current_row + START_POSITION[0],
+        move_pattern[1] * current_row + START_POSITION[1],
+    )
 
 
 def get_encountered_trees(move_pattern):
@@ -33,7 +39,10 @@ def part_one():
 
 
 def part_two():
-    return reduce(lambda a, b: a * b, [get_encountered_trees(move_pattern) for move_pattern in MOVES_PATTERN_LIST])
+    return reduce(
+        lambda a, b: a * b,
+        [get_encountered_trees(move_pattern) for move_pattern in MOVES_PATTERN_LIST],
+    )
 
 
 print(part_one())

@@ -1,41 +1,41 @@
 from re import match
 
-ALL_KEYS = ['byr', 'iyr', 'eyr', 'hgt', 'hcl', 'ecl', 'pid', 'cid']
-REQUIRED_KEYS = ['byr', 'iyr', 'eyr', 'hgt', 'hcl', 'ecl', 'pid']
+ALL_KEYS = ["byr", "iyr", "eyr", "hgt", "hcl", "ecl", "pid", "cid"]
+REQUIRED_KEYS = ["byr", "iyr", "eyr", "hgt", "hcl", "ecl", "pid"]
 REQUIRED_KEYS_LENGTH = len(REQUIRED_KEYS)
-CM = 'cm'
-IN = 'in'
-BYR = 'byr'
-IYR = 'iyr'
-EYR = 'eyr'
-HGT = 'hgt'
-HCL = 'hcl'
-ECL = 'ecl'
-PID = 'pid'
-CID = 'cid'
-EYE_COLORS = ['amb', 'blu', 'brn', 'gry', 'grn', 'hzl', 'oth']
-RE_HAIR_COLOR_PATTERN = r'#(\d|[a-f]){6}'
-RE_PASSPORT_ID = r'\d{9}'
+CM = "cm"
+IN = "in"
+BYR = "byr"
+IYR = "iyr"
+EYR = "eyr"
+HGT = "hgt"
+HCL = "hcl"
+ECL = "ecl"
+PID = "pid"
+CID = "cid"
+EYE_COLORS = ["amb", "blu", "brn", "gry", "grn", "hzl", "oth"]
+RE_HAIR_COLOR_PATTERN = r"#(\d|[a-f]){6}"
+RE_PASSPORT_ID = r"\d{9}"
 
 
 def parse_single_passport(passport):
     parsed_passport = {}
-    for element in passport.split(' '):
+    for element in passport.split(" "):
         if element:
-            key, value = element.split(':')
+            key, value = element.split(":")
             parsed_passport[key] = value
     return parsed_passport
 
 
-with open('input') as f:
+with open("input") as f:
     passports = []
-    single_passport = ''
-    for line in f.read().split('\n'):
+    single_passport = ""
+    for line in f.read().split("\n"):
         if line:
-            single_passport += f' {line}'
+            single_passport += f" {line}"
         else:
             passports.append(parse_single_passport(single_passport))
-            single_passport = ''
+            single_passport = ""
     passports.append(parse_single_passport(single_passport))
 
 
@@ -68,7 +68,7 @@ VALIDATION_MAP = {
     HCL: lambda value: match(RE_HAIR_COLOR_PATTERN, value),
     ECL: lambda value: value in EYE_COLORS,
     PID: lambda value: match(RE_PASSPORT_ID, value),
-    CID: lambda value: True
+    CID: lambda value: True,
 }
 
 
@@ -87,7 +87,9 @@ def part_two():
     #     if len(aaa) < 6:
     #         print(aaa)
     #         # blad ze jedno wylicza jako poprawne mimo ze nie jest
-    return count_passports_with_required_keys([passport for passport in passports if is_valid_passport(passport)])
+    return count_passports_with_required_keys(
+        [passport for passport in passports if is_valid_passport(passport)]
+    )
 
 
 # print(part_one())
